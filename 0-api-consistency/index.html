@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        button {
+            padding: 15px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+        
+        .btn-info {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        #results {
+            margin-top: 20px;
+        }
+        
+        .result-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .result-card.error {
+            background: #fff5f5;
+            border-left-color: #f56565;
+        }
+        
+        .result-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .timing {
+            font-size: 12px;
+            color: #666;
+            background: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .result-card pre {
+            background: white;
+            padding: 12px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 API Test Dashboard</h1>
+        <p class="subtitle">Demo page for Playwright MCP network interception demonstration</p>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="totalCalls">0</div>
+                <div class="stat-label">Total API Calls</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="successRate">100%</div>
+                <div class="stat-label">Success Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgTime">0ms</div>
+                <div class="stat-label">Avg Response Time</div>
+            </div>
+        </div>
+        
+        <div class="button-grid">
+            <button class="btn-success" onclick="fetchUsers('v1')">
+                ✓ Load Users V1<br>
+                <small style="opacity:0.8">Good caching</small>
+            </button>
+            
+            <button class="btn-success" onclick="fetchProducts()">
+                ✓ Load Products<br>
+                <small style="opacity:0.8">Excellent caching</small>
+            </button>
+            
+            <button class="btn-warning" onclick="fetchUsers('v2')">
+                ⚠️ Load Users V2<br>
+                <small style="opacity:0.8">Breaking changes!</small>
+            </button>
+            
+            <button class="btn-danger" onclick="fetchAnalytics()">
+                🐌 Load Analytics<br>
+                <small style="opacity:0.8">Slow (~2.5s)</small>
+            </button>
+            
+            <button class="btn-danger" onclick="fetchOrders()">
+                ❌ Load Orders<br>
+                <small style="opacity:0.8">May fail (30%)</small>
+            </button>
+            
+            <button class="btn-info" onclick="fetchLegacy()">
+                🔍 Load Legacy<br>
+                <small style="opacity:0.8">404 - Removed</small>
+            </button>
+        </div>
+        
+        <div id="results"></div>
+    </div>
+
+    <script>
+        let stats = {
+            totalCalls: 0,
+            successfulCalls: 0,
+            totalTime: 0
+        };
+
+        async function fetchUsers(version) {
+            const startTime = Date.now();
+            try {
+                const response = await fetch(`http://localhost:3000/api/${version}/users`);
+                const duration = Date.now() - startTime;
+                const data = await response.json();
+                updateStats(true, duration);
+                displayResult(`Users (${version.toUpperCase()})`, data, duration, 'success');
+            } catch (error) {
+                const duration = Date.now() - startTime;
+                updateStats(false, duration);
+                displayResult(`Users (${version.toUpperCase()})`, { error: error.message }, duration, 'error');
+            }
+        }
+
+        async function fetchProducts() {
+            const startTime = Date.now();
+            try {
+                const response = await fetch('http://localhost:3000/api/v1/products');
+                const duration = Date.now() - startTime;
+                const data = await response.json();
+                updateStats(true, duration);
+                displayResult('Products', data, duration, 'success');
+            } catch (error) {
+                const duration = Date.now() - startTime;
+                updateStats(false, duration);
+                displayResult('Products', { error: error.message }, duration, 'error');
+            }
+        }
+
+        async function fetchAnalytics() {
+            const startTime = Date.now();
+            try {
+                const response = await fetch('http://localhost:3000/api/v1/analytics');
+                const duration = Date.now() - startTime;
+                const data = await response.json();
+                updateStats(true, duration);
+                displayResult('Analytics', data, duration, 'success');
+            } catch (error) {
+                const duration = Date.now() - startTime;
+                updateStats(false, duration);
+                displayResult('Analytics', { error: error.message }, duration, 'error');
+            }
+        }
+
+        async function fetchOrders() {
+            const startTime = Date.now();
+            try {
+                const response = await fetch('http://localhost:3000/api/v1/orders');
+                const duration = Date.now() - startTime;
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    updateStats(false, duration);
+                    displayResult('Orders', error, duration, 'error');
+                } else {
+                    const data = await response.json();
+                    updateStats(true, duration);
+                    displayResult('Orders', data, duration, 'success');
+                }
+            } catch (error) {
+                const duration = Date.now() - startTime;
+                updateStats(false, duration);
+                displayResult('Orders', { error: error.message }, duration, 'error');
+            }
+        }
+
+        async function fetchLegacy() {
+            const startTime = Date.now();
+            try {
+                const response = await fetch('http://localhost:3000/api/v1/legacy-endpoint');
+                const duration = Date.now() - startTime;
+                
+                if (!response.ok) {
+                    updateStats(false, duration);
+                    displayResult('Legacy Endpoint', { 
+                        error: `HTTP ${response.status}: Endpoint not found`,
+                        message: 'This endpoint may have been removed (breaking change)'
+                    }, duration, 'error');
+                } else {
+                    const data = await response.json();
+                    updateStats(true, duration);
+                    displayResult('Legacy Endpoint', data, duration, 'success');
+                }
+            } catch (error) {
+                const duration = Date.now() - startTime;
+                updateStats(false, duration);
+                displayResult('Legacy Endpoint', { error: error.message }, duration, 'error');
+            }
+        }
+
+        function updateStats(success, duration) {
+            stats.totalCalls++;
+            stats.totalTime += duration;
+            if (success) stats.successfulCalls++;
+            
+            document.getElementById('totalCalls').textContent = stats.totalCalls;
+            document.getElementById('successRate').textContent = 
+                Math.round((stats.successfulCalls / stats.totalCalls) * 100) + '%';
+            document.getElementById('avgTime').textContent = 
+                Math.round(stats.totalTime / stats.totalCalls) + 'ms';
+        }
+
+        function displayResult(title, data, duration, type) {
+            const resultsDiv = document.getElementById('results');
+            const card = document.createElement('div');
+            card.className = `result-card ${type === 'error' ? 'error' : ''}`;
+            
+            const timing = duration > 1000 ? 
+                `🐌 ${duration}ms` : 
+                duration > 500 ? 
+                `⚠️ ${duration}ms` : 
+                `✓ ${duration}ms`;
+            
+            card.innerHTML = `
+                <h3>
+                    <span>${type === 'error' ? '❌' : '✅'} ${title}</span>
+                    <span class="timing">${timing}</span>
+                </h3>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+            
+            resultsDiv.insertBefore(card, resultsDiv.firstChild);
+        }
+    </script>
+</body>
+</html>
