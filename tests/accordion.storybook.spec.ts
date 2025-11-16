@@ -9,7 +9,7 @@ test.describe('Storybook Accordion', () => {
     
     await expect(page).toHaveTitle(/Storybook/i);
     
-    const sidebar = page.locator('nav[role="navigation"]');
+    const sidebar = page.getByRole('navigation', { name: 'Global' });
     await expect(sidebar).toBeVisible({ timeout: 10000 });
   });
 
