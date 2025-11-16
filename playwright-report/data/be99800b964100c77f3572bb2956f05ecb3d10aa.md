@@ -1,0 +1,426 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - navigation "Global" [ref=e6]:
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - link "Skip to canvas" [ref=e12] [cursor=pointer]:
+          - /url: "#storybook-preview-wrapper"
+        - link "Storybook" [ref=e14] [cursor=pointer]:
+          - /url: ./
+          - img "Storybook" [ref=e15]
+        - button "Settings" [ref=e21] [cursor=pointer]:
+          - img [ref=e22]
+      - generic [ref=e25]: Search for components
+      - generic [ref=e26]:
+        - combobox "Search for components" [ref=e27]:
+          - generic:
+            - img
+          - searchbox "Search for components" [ref=e28]
+          - code:
+            - generic: ⌘
+            - text: K
+          - button "Tag filters" [ref=e32] [cursor=pointer]:
+            - img [ref=e33]
+        - button "Create a new story" [ref=e36] [cursor=pointer]:
+          - img [ref=e37]
+      - generic [ref=e39]:
+        - generic [ref=e43]:
+          - img
+          - generic [ref=e44]:
+            - button "Components" [expanded] [ref=e45] [cursor=pointer]:
+              - img [ref=e47]
+              - text: Components
+            - button "Collapse" [ref=e49] [cursor=pointer]:
+              - img [ref=e50]
+          - button "Accordion" [expanded] [ref=e53] [cursor=pointer]:
+            - generic [ref=e54]:
+              - img [ref=e56]
+              - img [ref=e58]
+            - text: Accordion
+          - generic [ref=e60]:
+            - link "Docs" [ref=e61] [cursor=pointer]:
+              - /url: /?path=/docs/components-accordion--docs
+              - img [ref=e63]
+              - text: Docs
+            - link "Skip to canvas" [ref=e65] [cursor=pointer]:
+              - /url: "#storybook-preview-wrapper"
+          - button "Basic" [ref=e67] [cursor=pointer]:
+            - img [ref=e69]
+            - text: Basic
+          - button "Flush" [ref=e72] [cursor=pointer]:
+            - img [ref=e74]
+            - text: Flush
+          - button "Single Item" [ref=e77] [cursor=pointer]:
+            - img [ref=e79]
+            - text: Single Item
+          - button "Button" [ref=e82] [cursor=pointer]:
+            - generic [ref=e83]:
+              - img [ref=e85]
+              - img [ref=e87]
+            - text: Button
+          - generic [ref=e89]:
+            - button "Example" [expanded] [ref=e90] [cursor=pointer]:
+              - img [ref=e92]
+              - text: Example
+            - button "Collapse" [ref=e94] [cursor=pointer]:
+              - img [ref=e95]
+          - button "Button" [ref=e98] [cursor=pointer]:
+            - generic [ref=e99]:
+              - img [ref=e101]
+              - img [ref=e103]
+            - text: Button
+          - button "Header" [ref=e106] [cursor=pointer]:
+            - generic [ref=e107]:
+              - img [ref=e109]
+              - img [ref=e111]
+            - text: Header
+          - button "Page" [ref=e114] [cursor=pointer]:
+            - generic [ref=e115]:
+              - img [ref=e117]
+              - img [ref=e119]
+            - text: Page
+        - text: /
+  - main [ref=e122]:
+    - region "Toolbar" [ref=e123]:
+      - generic [ref=e124]: Toolbar
+      - generic [ref=e125]:
+        - generic [ref=e126]:
+          - button "Apply a grid to the preview" [ref=e127] [cursor=pointer]:
+            - img [ref=e128]
+          - button "Change the background of the preview" [ref=e131] [cursor=pointer]:
+            - img [ref=e132]
+          - button "Apply outlines to the preview" [ref=e135] [cursor=pointer]:
+            - img [ref=e136]
+        - generic [ref=e138]:
+          - button "Go full screen" [ref=e139] [cursor=pointer]:
+            - img [ref=e140]
+          - button "Open in editor" [ref=e142] [cursor=pointer]:
+            - img [ref=e143]
+    - generic [ref=e148]:
+      - link "Skip to sidebar" [ref=e149] [cursor=pointer]:
+        - /url: "#components-accordion--docs"
+      - iframe [ref=e150]:
+        - generic [ref=f1e4]:
+          - heading "Accordion" [level=1] [ref=f1e5]
+          - paragraph [ref=f1e6]: Build vertically collapsing accordions in combination with the Collapse component.
+          - generic [ref=f1e8]:
+            - generic [ref=f1e10]:
+              - generic [ref=f1e12]:
+                - button "Zoom in" [ref=f1e13] [cursor=pointer]:
+                  - img [ref=f1e14]
+                - button "Zoom out" [ref=f1e17] [cursor=pointer]:
+                  - img [ref=f1e18]
+                - button "Reset zoom" [ref=f1e21] [cursor=pointer]:
+                  - img [ref=f1e22]
+              - link "Open canvas in new tab" [ref=f1e26] [cursor=pointer]:
+                - /url: ./iframe.html?id=components-accordion--basic
+                - img [ref=f1e27]
+            - generic [ref=f1e30]:
+              - generic [ref=f1e38]:
+                - generic [ref=f1e39]:
+                  - 'heading "Accordion Item #1" [level=2] [ref=f1e40]':
+                    - 'button "Accordion Item #1" [expanded] [ref=f1e41] [cursor=pointer]'
+                  - generic [ref=f1e43]:
+                    - strong [ref=f1e44]: This is the accordion body of item 1.
+                    - text: It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element.
+                - 'heading "Accordion Item #2" [level=2] [ref=f1e46]':
+                  - 'button "Accordion Item #2" [ref=f1e47] [cursor=pointer]'
+                - 'heading "Accordion Item #3" [level=2] [ref=f1e49]':
+                  - 'button "Accordion Item #3" [ref=f1e50] [cursor=pointer]'
+              - button "Show code" [ref=f1e52] [cursor=pointer]
+          - generic [ref=f1e54]:
+            - button "Reset controls" [ref=f1e56] [cursor=pointer]:
+              - img [ref=f1e57]
+            - table [ref=f1e59]:
+              - rowgroup [ref=f1e60]:
+                - row "Name Description Default Control" [ref=f1e61]:
+                  - cell "Name" [ref=f1e62]
+                  - cell "Description" [ref=f1e63]
+                  - cell "Default" [ref=f1e64]
+                  - cell "Control" [ref=f1e65]
+              - rowgroup [ref=f1e66]:
+                - row "Hide Variant items Variant Hide Variant items" [ref=f1e67]:
+                  - cell "Hide Variant items Variant" [ref=f1e68]:
+                    - button "Hide Variant items" [ref=f1e69]
+                    - generic [ref=f1e70]:
+                      - img [ref=f1e71]
+                      - text: Variant
+                  - cell "Hide Variant items" [ref=f1e73]:
+                    - button "Hide Variant items" [ref=f1e74]
+                - row "flush Remove the default background-color, some borders, and some rounded corners boolean - flush" [ref=f1e75]:
+                  - cell "flush" [ref=f1e76]
+                  - cell "Remove the default background-color, some borders, and some rounded corners boolean" [ref=f1e77]:
+                    - generic [ref=f1e78]: Remove the default background-color, some borders, and some rounded corners
+                    - generic [ref=f1e81]: boolean
+                  - cell "-" [ref=f1e82]
+                  - cell "flush" [ref=f1e83]:
+                    - generic "flush" [ref=f1e84]:
+                      - switch "flush" [ref=f1e85] [cursor=pointer]
+                      - generic [ref=f1e86] [cursor=pointer]: "False"
+                      - generic [ref=f1e87] [cursor=pointer]: "True"
+                - row "alwaysOpen Allow multiple items to be open simultaneously boolean - alwaysOpen" [ref=f1e88]:
+                  - cell "alwaysOpen" [ref=f1e89]
+                  - cell "Allow multiple items to be open simultaneously boolean" [ref=f1e90]:
+                    - generic [ref=f1e91]: Allow multiple items to be open simultaneously
+                    - generic [ref=f1e94]: boolean
+                  - cell "-" [ref=f1e95]
+                  - cell "alwaysOpen" [ref=f1e96]:
+                    - generic "alwaysOpen" [ref=f1e97]:
+                      - switch "alwaysOpen" [ref=f1e98] [cursor=pointer]
+                      - generic [ref=f1e99] [cursor=pointer]: "False"
+                      - generic [ref=f1e100] [cursor=pointer]: "True"
+                - row "defaultActiveKey Default active accordion item key string - 0" [ref=f1e101]:
+                  - cell "defaultActiveKey" [ref=f1e102]
+                  - cell "Default active accordion item key string" [ref=f1e103]:
+                    - generic [ref=f1e104]: Default active accordion item key
+                    - generic [ref=f1e107]: string
+                  - cell "-" [ref=f1e108]
+                  - cell "0" [ref=f1e109]:
+                    - textbox [ref=f1e111]:
+                      - /placeholder: Edit string...
+                      - text: "0"
+                - row "Hide Content items Content Hide Content items" [ref=f1e112]:
+                  - cell "Hide Content items Content" [ref=f1e113]:
+                    - button "Hide Content items" [ref=f1e114]
+                    - generic [ref=f1e115]:
+                      - img [ref=f1e116]
+                      - text: Content
+                  - cell "Hide Content items" [ref=f1e118]:
+                    - button "Hide Content items" [ref=f1e119]
+                - row "numberOfItems Number of accordion items number - 3" [ref=f1e120]:
+                  - cell "numberOfItems" [ref=f1e121]
+                  - cell "Number of accordion items number" [ref=f1e122]:
+                    - generic [ref=f1e123]: Number of accordion items
+                    - generic [ref=f1e126]: number
+                  - cell "-" [ref=f1e127]
+                  - cell "3" [ref=f1e128]:
+                    - spinbutton [ref=f1e130]: "3"
+                - 'row "itemTitles Array of accordion item titles array - Edit the itemTitles properties in text format itemTitles : [ add a new item to the ''itemTitles'' array 0 : \"Accordion Item #1\" remove the property ''0'' with value ''Accordion Item #1'' from ''itemTitles'' 1 : \"Accordion Item #2\" remove the property ''1'' with value ''Accordion Item #2'' from ''itemTitles'' 2 : \"Accordion Item #3\" remove the property ''2'' with value ''Accordion Item #3'' from ''itemTitles'' ] remove the array ''itemTitles''" [ref=f1e131]':
+                  - cell "itemTitles" [ref=f1e132]
+                  - cell "Array of accordion item titles array" [ref=f1e133]:
+                    - generic [ref=f1e134]: Array of accordion item titles
+                    - generic [ref=f1e137]: array
+                  - cell "-" [ref=f1e138]
+                  - 'cell "Edit the itemTitles properties in text format itemTitles : [ add a new item to the ''itemTitles'' array 0 : \"Accordion Item #1\" remove the property ''0'' with value ''Accordion Item #1'' from ''itemTitles'' 1 : \"Accordion Item #2\" remove the property ''1'' with value ''Accordion Item #2'' from ''itemTitles'' 2 : \"Accordion Item #3\" remove the property ''2'' with value ''Accordion Item #3'' from ''itemTitles'' ] remove the array ''itemTitles''" [ref=f1e139]':
+                    - generic [ref=f1e140]:
+                      - switch "Edit the itemTitles properties in text format" [ref=f1e141] [cursor=pointer]:
+                        - img [ref=f1e142]
+                        - generic [ref=f1e145]: RAW
+                      - listitem [ref=f1e147]:
+                        - button "itemTitles :" [expanded] [ref=f1e148] [cursor=pointer]
+                        - region "itemTitles :" [ref=f1e149]:
+                          - text: "["
+                          - button "add a new item to the 'itemTitles' array" [ref=f1e150] [cursor=pointer]:
+                            - img [ref=f1e151]
+                          - list [ref=f1e154]:
+                            - listitem [ref=f1e155]:
+                              - generic [ref=f1e156]: "0 :"
+                              - generic [ref=f1e157]: "\"Accordion Item #1\""
+                              - 'button "remove the property ''0'' with value ''Accordion Item #1'' from ''itemTitles''" [ref=f1e158] [cursor=pointer]':
+                                - img [ref=f1e159]
+                            - listitem [ref=f1e162]:
+                              - generic [ref=f1e163]: "1 :"
+                              - generic [ref=f1e164]: "\"Accordion Item #2\""
+                              - 'button "remove the property ''1'' with value ''Accordion Item #2'' from ''itemTitles''" [ref=f1e165] [cursor=pointer]':
+                                - img [ref=f1e166]
+                            - listitem [ref=f1e169]:
+                              - generic [ref=f1e170]: "2 :"
+                              - generic [ref=f1e171]: "\"Accordion Item #3\""
+                              - 'button "remove the property ''2'' with value ''Accordion Item #3'' from ''itemTitles''" [ref=f1e172] [cursor=pointer]':
+                                - img [ref=f1e173]
+                          - text: "]"
+                          - button "remove the array 'itemTitles'" [ref=f1e176] [cursor=pointer]:
+                            - img [ref=f1e177]
+                - row [ref=f1e180]:
+                  - cell "itemContents" [ref=f1e181]
+                  - cell "Array of accordion item contents array" [ref=f1e182]:
+                    - generic [ref=f1e183]: Array of accordion item contents
+                    - generic [ref=f1e186]: array
+                  - cell "-" [ref=f1e187]
+                  - cell [ref=f1e188]:
+                    - generic [ref=f1e189]:
+                      - switch "Edit the itemContents properties in text format" [ref=f1e190] [cursor=pointer]:
+                        - img [ref=f1e191]
+                        - generic [ref=f1e194]: RAW
+                      - listitem [ref=f1e196]:
+                        - button "itemContents :" [expanded] [ref=f1e197] [cursor=pointer]
+                        - region "itemContents :" [ref=f1e198]:
+                          - text: "["
+                          - button "add a new item to the 'itemContents' array" [ref=f1e199] [cursor=pointer]:
+                            - img [ref=f1e200]
+                          - list [ref=f1e203]:
+                            - listitem [ref=f1e204]:
+                              - generic [ref=f1e205]: "0 :"
+                              - generic [ref=f1e206]: "\"This is the accordion body of item 1. It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element.\""
+                              - button "remove the property '0' with value 'This is the accordion body of item 1. It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element.' from 'itemContents'" [ref=f1e207] [cursor=pointer]:
+                                - img [ref=f1e208]
+                            - listitem [ref=f1e211]:
+                              - generic [ref=f1e212]: "1 :"
+                              - generic [ref=f1e213]: "\"This is the accordion body of item 2. These classes control the overall appearance, as well as the showing and hiding via CSS transitions.\""
+                              - button "remove the property '1' with value 'This is the accordion body of item 2. These classes control the overall appearance, as well as the showing and hiding via CSS transitions.' from 'itemContents'" [ref=f1e214] [cursor=pointer]:
+                                - img [ref=f1e215]
+                            - listitem [ref=f1e218]:
+                              - generic [ref=f1e219]: "2 :"
+                              - generic [ref=f1e220]: "\"This is the accordion body of item 3. You can modify any of this with custom CSS or overriding our default variables.\""
+                              - button "remove the property '2' with value 'This is the accordion body of item 3. You can modify any of this with custom CSS or overriding our default variables.' from 'itemContents'" [ref=f1e221] [cursor=pointer]:
+                                - img [ref=f1e222]
+                          - text: "]"
+                          - button "remove the array 'itemContents'" [ref=f1e225] [cursor=pointer]:
+                            - img [ref=f1e226]
+                - row "Hide Styling items Styling Hide Styling items" [ref=f1e229]:
+                  - cell "Hide Styling items Styling" [ref=f1e230]:
+                    - button "Hide Styling items" [ref=f1e231]
+                    - generic [ref=f1e232]:
+                      - img [ref=f1e233]
+                      - text: Styling
+                  - cell "Hide Styling items" [ref=f1e235]:
+                    - button "Hide Styling items" [ref=f1e236]
+                - 'row "headerBackgroundColor Header background color string - #624bff" [ref=f1e237]':
+                  - cell "headerBackgroundColor" [ref=f1e238]
+                  - cell "Header background color string" [ref=f1e239]:
+                    - generic [ref=f1e240]: Header background color
+                    - generic [ref=f1e243]: string
+                  - cell "-" [ref=f1e244]
+                  - cell "#624bff" [ref=f1e245]:
+                    - generic [ref=f1e246]:
+                      - textbox "Choose color..." [ref=f1e249]: "#624bff"
+                      - img [ref=f1e250] [cursor=pointer]
+                - 'row "headerTextColor Header text color string - #ffffff" [ref=f1e252]':
+                  - cell "headerTextColor" [ref=f1e253]
+                  - cell "Header text color string" [ref=f1e254]:
+                    - generic [ref=f1e255]: Header text color
+                    - generic [ref=f1e258]: string
+                  - cell "-" [ref=f1e259]
+                  - cell "#ffffff" [ref=f1e260]:
+                    - generic [ref=f1e261]:
+                      - textbox "Choose color..." [ref=f1e264]: "#ffffff"
+                      - img [ref=f1e265] [cursor=pointer]
+                - 'row "bodyBackgroundColor Body background color string - #ffffff" [ref=f1e267]':
+                  - cell "bodyBackgroundColor" [ref=f1e268]
+                  - cell "Body background color string" [ref=f1e269]:
+                    - generic [ref=f1e270]: Body background color
+                    - generic [ref=f1e273]: string
+                  - cell "-" [ref=f1e274]
+                  - cell "#ffffff" [ref=f1e275]:
+                    - generic [ref=f1e276]:
+                      - textbox "Choose color..." [ref=f1e279]: "#ffffff"
+                      - img [ref=f1e280] [cursor=pointer]
+                - 'row "bodyTextColor Body text color string - #637381" [ref=f1e282]':
+                  - cell "bodyTextColor" [ref=f1e283]
+                  - cell "Body text color string" [ref=f1e284]:
+                    - generic [ref=f1e285]: Body text color
+                    - generic [ref=f1e288]: string
+                  - cell "-" [ref=f1e289]
+                  - cell "#637381" [ref=f1e290]:
+                    - generic [ref=f1e291]:
+                      - textbox "Choose color..." [ref=f1e294]: "#637381"
+                      - img [ref=f1e295] [cursor=pointer]
+                - 'row "borderColor Border color string - #dfe3e8" [ref=f1e297]':
+                  - cell "borderColor" [ref=f1e298]
+                  - cell "Border color string" [ref=f1e299]:
+                    - generic [ref=f1e300]: Border color
+                    - generic [ref=f1e303]: string
+                  - cell "-" [ref=f1e304]
+                  - cell "#dfe3e8" [ref=f1e305]:
+                    - generic [ref=f1e306]:
+                      - textbox "Choose color..." [ref=f1e309]: "#dfe3e8"
+                      - img [ref=f1e310] [cursor=pointer]
+                - row "borderRadius Border radius string - md" [ref=f1e312]:
+                  - cell "borderRadius" [ref=f1e313]
+                  - cell "Border radius string" [ref=f1e314]:
+                    - generic [ref=f1e315]: Border radius
+                    - generic [ref=f1e318]: string
+                  - cell "-" [ref=f1e319]
+                  - cell "md" [ref=f1e320]:
+                    - generic [ref=f1e321]:
+                      - img
+                      - combobox [ref=f1e322]:
+                        - option "Choose option..." [disabled]
+                        - option "none"
+                        - option "sm"
+                        - option "md" [selected]
+                        - option "lg"
+                - row "fontSize Font size string - base" [ref=f1e323]:
+                  - cell "fontSize" [ref=f1e324]
+                  - cell "Font size string" [ref=f1e325]:
+                    - generic [ref=f1e326]: Font size
+                    - generic [ref=f1e329]: string
+                  - cell "-" [ref=f1e330]
+                  - cell "base" [ref=f1e331]:
+                    - generic [ref=f1e332]:
+                      - img
+                      - combobox [ref=f1e333]:
+                        - option "Choose option..." [disabled]
+                        - option "sm"
+                        - option "base" [selected]
+                        - option "lg"
+                - row "fontWeight Font weight string - normal" [ref=f1e334]:
+                  - cell "fontWeight" [ref=f1e335]
+                  - cell "Font weight string" [ref=f1e336]:
+                    - generic [ref=f1e337]: Font weight
+                    - generic [ref=f1e340]: string
+                  - cell "-" [ref=f1e341]
+                  - cell "normal" [ref=f1e342]:
+                    - generic [ref=f1e343]:
+                      - img
+                      - combobox [ref=f1e344]:
+                        - option "Choose option..." [disabled]
+                        - option "normal" [selected]
+                        - option "medium"
+                        - option "bold"
+          - heading "Stories" [level=2] [ref=f1e345]:
+            - link [ref=f1e346] [cursor=pointer]:
+              - /url: "#stories"
+            - text: Stories
+          - generic [ref=f1e347]:
+            - heading "Basic" [level=3] [ref=f1e348]:
+              - link [ref=f1e349] [cursor=pointer]:
+                - /url: "#basic"
+              - text: Basic
+            - generic [ref=f1e351]:
+              - generic [ref=f1e359]:
+                - generic [ref=f1e360]:
+                  - 'heading "Accordion Item #1" [level=2] [ref=f1e361]':
+                    - 'button "Accordion Item #1" [expanded] [ref=f1e362] [cursor=pointer]'
+                  - generic [ref=f1e364]:
+                    - strong [ref=f1e365]: This is the accordion body of item 1.
+                    - text: It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element.
+                - 'heading "Accordion Item #2" [level=2] [ref=f1e367]':
+                  - 'button "Accordion Item #2" [ref=f1e368] [cursor=pointer]'
+                - 'heading "Accordion Item #3" [level=2] [ref=f1e370]':
+                  - 'button "Accordion Item #3" [ref=f1e371] [cursor=pointer]'
+              - button "Show code" [ref=f1e373] [cursor=pointer]
+          - generic [ref=f1e374]:
+            - heading "Flush" [level=3] [ref=f1e375]:
+              - link [ref=f1e376] [cursor=pointer]:
+                - /url: "#flush"
+              - text: Flush
+            - generic [ref=f1e378]:
+              - generic [ref=f1e386]:
+                - generic [ref=f1e387]:
+                  - 'heading "Accordion Item #1" [level=2] [ref=f1e388]':
+                    - 'button "Accordion Item #1" [expanded] [ref=f1e389] [cursor=pointer]'
+                  - generic [ref=f1e391]:
+                    - strong [ref=f1e392]: This is the accordion body of item 1.
+                    - text: It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element.
+                - 'heading "Accordion Item #2" [level=2] [ref=f1e394]':
+                  - 'button "Accordion Item #2" [ref=f1e395] [cursor=pointer]'
+                - 'heading "Accordion Item #3" [level=2] [ref=f1e397]':
+                  - 'button "Accordion Item #3" [ref=f1e398] [cursor=pointer]'
+              - button "Show code" [ref=f1e400] [cursor=pointer]
+          - generic [ref=f1e401]:
+            - heading "Single Item" [level=3] [ref=f1e402]:
+              - link [ref=f1e403] [cursor=pointer]:
+                - /url: "#single-item"
+              - text: Single Item
+            - generic [ref=f1e405]:
+              - generic [ref=f1e414]:
+                - heading "Single Accordion Item" [level=2] [ref=f1e415]:
+                  - button "Single Accordion Item" [expanded] [ref=f1e416] [cursor=pointer]
+                - generic [ref=f1e418]:
+                  - strong [ref=f1e419]: This is a single accordion item example.
+                  - text: This is a single accordion item example.
+              - button "Show code" [ref=f1e421] [cursor=pointer]
+```

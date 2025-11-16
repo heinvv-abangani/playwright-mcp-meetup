@@ -26,369 +26,203 @@ This PRD outlines the requirements for implementing Storybook to document and te
 - **Base Component**: React Bootstrap `Button`
 - **Variants**: Regular, Outline, Sizes, Block, Icons, States (Active/Disabled/Toggle)
 
-## Questions & Decisions Required
+## Technical Decisions (Defaults)
 
-### 1. Storybook Setup & Configuration
+### Storybook Setup
 
-#### 1.1 Storybook Version & Framework
-- **Question**: Which version of Storybook should we use? (Latest stable v7.x or v8.x?)
-- **Question**: Should we use Storybook's Vite builder or Webpack? (Project uses Vite)
-- **Question**: Do we need Storybook's experimental features (e.g., Next.js support, React Server Components)?
-- **Question**: Should we use TypeScript for story files (.tsx) or JavaScript (.jsx)?
-- **Question**: Where should Storybook configuration files be located? (`.storybook/` in root or `storybook/`?)
+- **Version**: Latest stable Storybook v7.x with Vite builder
+- **Configuration**: `.storybook/` directory in project root
+- **Story Files**: TypeScript (.tsx) files co-located with components in `src/bootstrap-components/`
+- **Port**: Default 6006
+- **Script**: `npm run storybook` for development, `npm run build-storybook` for build
 
-#### 1.2 Build & Deployment
-- **Question**: Should Storybook be included in the main build process or separate?
-- **Question**: Do we need a separate npm script for Storybook (`npm run storybook`)?
-- **Question**: Should Storybook be deployed separately or integrated into the main app?
-- **Question**: What port should Storybook run on? (Default 6006 or custom?)
-- **Question**: Should we add Storybook to CI/CD pipeline for visual regression testing?
+### Dependencies & Integration
 
-#### 1.3 Dependencies & Integration
-- **Question**: Should Storybook use the same Bootstrap/React Bootstrap setup as the main app?
-- **Question**: Do we need to import the same SCSS files (`src/styles/theme.scss`) into Storybook?
-- **Question**: Should Storybook have access to the same routing setup or be isolated?
-- **Question**: Do we need to mock any dependencies (e.g., react-router) in Storybook?
+- **Bootstrap**: Use same React Bootstrap setup as main app
+- **Styles**: Import existing SCSS theme files (`src/styles/theme.scss`)
+- **Routing**: Isolated from main app routing (no react-router needed in Storybook)
+- **Components**: Use React Bootstrap components directly (no wrapper components needed)
 
-### 2. Component Structure & Architecture
+### Story Organization
 
-#### 2.1 Component Extraction
-- **Question**: Should we extract reusable Accordion/Button components from the demo pages, or use the existing React Bootstrap components directly?
-- **Question**: Do we need wrapper components that combine React Bootstrap with custom styling?
-- **Question**: Should stories be written for individual components or composite examples (e.g., multiple accordions together)?
-- **Question**: How should we handle the Tab.Container wrapper used in the demo pages? (Include or exclude?)
+- **Structure**: One story file per component (`Accordion.stories.tsx`, `Button.stories.tsx`)
+- **Hierarchy**: Use Storybook's component hierarchy (`Components/Accordion/Basic`, `Components/Button/Primary`)
+- **Naming**: Descriptive names matching demo page structure
+- **Location**: Co-located with components: `src/bootstrap-components/Accordion.stories.tsx`
 
-#### 2.2 Component Props & API
-- **Question**: Should we create TypeScript interfaces for component props?
-- **Question**: Do we need to document all React Bootstrap props or only custom ones?
-- **Question**: Should we create custom prop types that extend React Bootstrap's types?
+### Required Addons
 
-### 3. Controls & Styling
+- `@storybook/addon-controls` - Interactive controls (default)
+- `@storybook/addon-actions` - Event logging
+- `@storybook/addon-docs` - Documentation
+- `@storybook/addon-viewport` - Responsive testing
+- `@storybook/addon-backgrounds` - Background color testing
 
-#### 3.1 Color Controls
-- **Question**: Which color properties should be controllable?
-  - Background color (primary, secondary, success, etc.)?
-  - Text color?
-  - Border color?
-  - Hover state colors?
-  - Active state colors?
-  - Disabled state colors?
-- **Question**: Should color controls use:
-  - Color picker (hex/rgb)?
-  - Dropdown with predefined theme colors (from `_variables.scss`)?
-  - Both options?
-- **Question**: Should we expose all Bootstrap theme colors or a subset?
-- **Question**: Do we need custom color presets beyond Bootstrap defaults?
-- **Question**: Should color controls apply to individual accordion items or the entire accordion?
+## Controls & Styling Requirements
 
-#### 3.2 Typography Controls
-- **Question**: Which typography properties should be controllable?
-  - Font size (should we use Bootstrap size classes or custom pixel values)?
-  - Font weight (normal, medium, bold, etc.)?
-  - Font family (should we allow custom fonts or stick to theme fonts)?
-  - Line height?
-  - Letter spacing?
-  - Text transform (uppercase, lowercase, capitalize)?
-- **Question**: Should font size use:
-  - Dropdown with predefined sizes (sm, md, lg, xl)?
-  - Slider with pixel/rem values?
-  - Text input for custom values?
-- **Question**: Should typography controls apply to:
-  - Accordion headers only?
-  - Accordion body content?
-  - Button text?
-  - All text elements?
+### Accordion Controls
 
-#### 3.3 Icon Controls
-- **Question**: Which icon properties should be controllable?
-  - Icon library (react-feather, react-bootstrap-icons, or both)?
-  - Icon name/type?
-  - Icon size?
-  - Icon position (left, right, top, bottom)?
-  - Icon color?
-  - Icon spacing from text?
-- **Question**: Should icon controls be:
-  - Dropdown with icon names?
-  - Icon picker component?
-  - Text input for icon name?
-- **Question**: For buttons, should icons be optional or required?
-- **Question**: For accordions, should we control the expand/collapse icon or only content icons?
+#### Variant Controls
+- **Flush**: Boolean toggle (default: false)
+- **Always Open**: Boolean toggle (default: false)
+- **Default Active Key**: Text input (default: "0")
 
-#### 3.4 Size & Spacing Controls
-- **Question**: Which size properties should be controllable?
-  - Component size (sm, md, lg)?
-  - Padding (top, right, bottom, left)?
-  - Margin?
-  - Border radius?
-  - Border width?
-- **Question**: Should spacing use:
-  - Bootstrap spacing scale (0-23 from `_variables.scss`)?
-  - Custom pixel/rem values?
-  - Slider controls?
-- **Question**: Should we have separate controls for:
-  - Accordion item spacing?
-  - Accordion header padding?
-  - Accordion body padding?
-  - Button padding?
+#### Content Controls
+- **Number of Items**: Number input (default: 3, range: 1-10)
+- **Item Titles**: Array of text inputs (editable)
+- **Item Content**: Array of text inputs (editable)
 
-#### 3.5 Layout & Behavior Controls
-- **Question**: Which layout properties should be controllable?
-  - Width (full-width, auto, custom)?
-  - Alignment (left, center, right)?
-  - Display (block, inline-block, flex)?
-  - Gap between items?
-- **Question**: For accordions:
-  - Allow multiple items open simultaneously?
-  - Default open item?
-  - Always open (non-collapsible)?
-  - Flush variant toggle?
-- **Question**: For buttons:
-  - Block button toggle?
-  - Responsive block behavior?
-  - Button group support?
+#### Styling Controls
+- **Header Background Color**: Color picker (default: Bootstrap primary)
+- **Header Text Color**: Color picker (default: Bootstrap text color)
+- **Body Background Color**: Color picker (default: white)
+- **Body Text Color**: Color picker (default: Bootstrap text color)
+- **Border Color**: Color picker (default: Bootstrap border color)
+- **Border Radius**: Select dropdown (none, sm, md, lg - from theme)
+- **Font Size**: Select dropdown (sm, base, lg - from theme)
+- **Font Weight**: Select dropdown (normal, medium, bold - from theme)
 
-#### 3.6 State Controls
-- **Question**: Which state properties should be controllable?
-  - Active state?
-  - Disabled state?
-  - Loading state (with spinner)?
-  - Hover state preview?
-  - Focus state preview?
-- **Question**: Should we have separate controls for:
-  - Individual accordion item states?
-  - Individual button states?
-  - Global state application?
+### Button Controls
 
-#### 3.7 Border & Shadow Controls
-- **Question**: Which border properties should be controllable?
-  - Border style (solid, dashed, dotted, none)?
-  - Border width?
-  - Border color?
-  - Border radius?
-- **Question**: Which shadow properties should be controllable?
-  - Box shadow (none, sm, md, lg from `_variables.scss`)?
-  - Custom shadow values?
-  - Shadow color?
+#### Variant Controls
+- **Variant**: Select dropdown (primary, secondary, success, danger, warning, info, light, dark, link)
+- **Outline**: Boolean toggle (default: false)
+- **Size**: Select dropdown (sm, default, lg)
+- **Block**: Boolean toggle (default: false)
 
-### 4. Story Organization
+#### Content Controls
+- **Text**: Text input (default: "Button")
+- **Icon**: Select dropdown (none, ShoppingBag, Plus, Check, etc. from react-feather)
+- **Icon Position**: Select dropdown (left, right)
+- **Icon Size**: Number input (default: 18, range: 12-24)
 
-#### 4.1 Story Structure
-- **Question**: How should stories be organized?
-  - One file per component (`Accordion.stories.tsx`, `Button.stories.tsx`)?
-  - Multiple story files per component (e.g., `AccordionBasic.stories.tsx`, `AccordionFlush.stories.tsx`)?
-  - Grouped by feature (e.g., `AccordionVariants.stories.tsx`)?
-- **Question**: Should we use Storybook's component hierarchy? (e.g., `Components/Accordion/Basic`)
-- **Question**: Should stories match the demo page structure exactly?
+#### State Controls
+- **Active**: Boolean toggle (default: false)
+- **Disabled**: Boolean toggle (default: false)
+- **Loading**: Boolean toggle (default: false, shows spinner)
 
-#### 4.2 Story Naming & Documentation
-- **Question**: What naming convention should we use for stories?
-  - Descriptive names (e.g., "Basic Accordion with Three Items")?
-  - Technical names (e.g., "AccordionDefault")?
-- **Question**: Should each story have:
-  - Description text?
-  - Code examples?
-  - Usage guidelines?
-  - Accessibility notes?
-- **Question**: Should we include the code snippets from `data/code/` files in stories?
+#### Styling Controls
+- **Background Color**: Color picker (default: variant color)
+- **Text Color**: Color picker (default: white for solid, variant color for outline)
+- **Border Color**: Color picker (default: variant color)
+- **Border Radius**: Select dropdown (none, sm, md, lg - from theme)
+- **Font Size**: Select dropdown (sm, base, lg - from theme)
+- **Font Weight**: Select dropdown (normal, medium, bold - from theme)
+- **Padding X**: Number input (default: 16, range: 8-32)
+- **Padding Y**: Number input (default: 8, range: 4-16)
 
-#### 4.3 Default Story Examples
-- **Question**: What should be the default story for Accordion?
-  - Basic accordion with 3 items?
-  - Single accordion item?
-  - Flush variant?
-- **Question**: What should be the default story for Button?
-  - Primary button?
-  - Button with all variants shown?
-  - Single customizable button?
+## Story Structure
 
-### 5. Controls Implementation Details
+### Accordion Stories
 
-#### 5.1 Control Types
-- **Question**: Which control types should we use for each property?
-  - `color` for colors?
-  - `select` for variants/sizes?
-  - `text` for text content?
-  - `number` for sizes/spacing?
-  - `boolean` for toggles?
-  - `range` for sliders?
-  - `object` for complex properties?
-- **Question**: Should we use custom control components or Storybook defaults?
+1. **Basic Accordion**
+   - Default accordion with 3 items
+   - All styling controls available
 
-#### 5.2 Control Organization
-- **Question**: How should controls be grouped?
-  - By category (Colors, Typography, Layout, etc.)?
-  - By component part (Header, Body, Container)?
-  - Alphabetically?
-  - By importance/usage frequency?
-- **Question**: Should we use Storybook's `argTypes` with `table` for documentation?
-- **Question**: Should controls be collapsible sections or flat list?
+2. **Flush Accordion**
+   - Flush variant enabled
+   - All styling controls available
 
-#### 5.3 Control Defaults
-- **Question**: What should be the default values for each control?
-  - Match the demo page defaults?
-  - Match Bootstrap defaults?
-  - Custom defaults optimized for Storybook?
-- **Question**: Should we provide preset configurations (e.g., "Primary Button", "Secondary Button")?
+3. **Single Item Accordion**
+   - One accordion item
+   - Simplified controls
 
-### 6. Styling & Theming
+### Button Stories
 
-#### 6.1 CSS/SCSS Integration
-- **Question**: How should we handle SCSS imports in Storybook?
-  - Import all theme files?
-  - Import only necessary files?
-  - Create Storybook-specific styles?
-- **Question**: Should Storybook use the same Bootstrap theme as the main app?
-- **Question**: Do we need a Storybook-specific theme or can we use the existing theme?
+1. **Primary Button**
+   - Default primary button
+   - All controls available
 
-#### 6.2 Custom Styling Application
-- **Question**: How should custom control values be applied?
-  - Inline styles via props?
-  - CSS classes with dynamic class names?
-  - CSS-in-JS (styled-components, emotion)?
-  - CSS custom properties (CSS variables)?
-- **Question**: Should custom styles override Bootstrap defaults or extend them?
-- **Question**: Do we need to handle style conflicts or specificity issues?
+2. **All Variants**
+   - Grid showing all button variants
+   - Variant selector control
 
-#### 6.3 Responsive Design
-- **Question**: Should Storybook include responsive viewport controls?
-- **Question**: Do we need to test components at different breakpoints?
-- **Question**: Should responsive behavior be controllable (e.g., block button at mobile)?
+3. **Sizes**
+   - All button sizes displayed
+   - Size selector control
 
-### 7. Content & Data
+4. **With Icons**
+   - Button with icon examples
+   - Icon controls available
 
-#### 7.1 Accordion Content
-- **Question**: Should accordion content be:
-  - Editable text controls?
-  - Predefined examples?
-  - Both options?
-- **Question**: How many accordion items should be controllable?
-  - Fixed number (3)?
-  - Dynamic (add/remove items)?
-  - Configurable count?
-- **Question**: Should accordion item titles be editable?
+5. **States**
+   - Active, disabled, loading states
+   - State toggles available
 
-#### 7.2 Button Content
-- **Question**: Should button text be:
-  - Editable text control?
-  - Predefined examples?
-  - Both options?
-- **Question**: Should we provide common button text presets (e.g., "Submit", "Cancel", "Save")?
+## Implementation Details
 
-### 8. Advanced Features
+### Control Types
 
-#### 8.1 Actions & Events
-- **Question**: Should we track component events (onClick, onChange, etc.)?
-- **Question**: Do we need Storybook Actions addon for event logging?
-- **Question**: Should accordion expand/collapse events be logged?
+- **Color**: `color` control type (hex color picker)
+- **Select**: `select` control type (dropdown)
+- **Text**: `text` control type (text input)
+- **Number**: `number` control type (number input with min/max)
+- **Boolean**: `boolean` control type (toggle switch)
 
-#### 8.2 Accessibility
-- **Question**: Should we include accessibility testing addons (a11y)?
-- **Question**: Do we need to document ARIA attributes?
-- **Question**: Should accessibility violations be shown in Storybook?
+### Styling Application
 
-#### 8.3 Visual Testing
-- **Question**: Should we integrate visual regression testing (Chromatic, Percy)?
-- **Question**: Do we need screenshot testing for different states?
-- **Question**: Should we test components in different themes (light/dark)?
+- **Method**: Inline styles via `style` prop for custom values
+- **Bootstrap Classes**: Use React Bootstrap props (variant, size, etc.) for standard options
+- **Custom Styles**: Apply via inline styles when Bootstrap classes don't cover the need
+- **Theme Colors**: Use color picker with Bootstrap theme colors as presets
 
-#### 8.4 Code Generation
-- **Question**: Should Storybook generate code snippets for component usage?
-- **Question**: Do we need a "Copy Code" feature for each story?
-- **Question**: Should code snippets match the actual component props used?
+### Control Organization
 
-### 9. Dependencies & Addons
+- **Grouping**: Controls organized by category using `argTypes` table
+- **Categories**: Variant, Content, State, Styling
+- **Documentation**: Each control has description in `argTypes`
 
-#### 9.1 Required Addons
-- **Question**: Which Storybook addons are essential?
-  - `@storybook/addon-controls` (default)?
-  - `@storybook/addon-actions`?
-  - `@storybook/addon-docs`?
-  - `@storybook/addon-viewport`?
-  - `@storybook/addon-a11y`?
-  - `@storybook/addon-backgrounds`?
-  - Others?
+## File Structure
 
-#### 9.2 Optional Addons
-- **Question**: Should we include:
-  - `@storybook/addon-measure`?
-  - `@storybook/addon-outline`?
-  - `@storybook/addon-designs` (Figma integration)?
-  - `@storybook/addon-interactions`?
-  - Others?
+```
+playwright-mcp-meetup/
+├── .storybook/
+│   ├── main.ts
+│   ├── preview.ts
+│   └── preview-head.html (for SCSS imports)
+├── src/
+│   └── bootstrap-components/
+│       ├── Accordion.stories.tsx
+│       ├── Button.stories.tsx
+│       ├── Accordions.tsx (existing)
+│       └── Buttons.tsx (existing)
+└── package.json
+```
 
-### 10. Testing & Quality
+## Questions & Open Decisions
 
-#### 10.1 Component Testing
-- **Question**: Should Storybook stories be used for automated testing?
-- **Question**: Do we need to write Playwright tests for Storybook stories?
-- **Question**: Should component behavior be testable within Storybook?
+### 1. Icon Library
+- **Question**: Should we support both react-feather and react-bootstrap-icons, or just react-feather?
+- **Default**: Start with react-feather only (already in dependencies)
 
-#### 10.2 Documentation Quality
-- **Question**: What level of documentation detail is required?
-  - Basic usage examples?
-  - Comprehensive API documentation?
-  - Design guidelines?
-  - Best practices?
-- **Question**: Should we include links to React Bootstrap documentation?
+### 2. Custom Color Presets
+- **Question**: Should color picker include Bootstrap theme color presets as quick-select options?
+- **Default**: Yes, include theme colors from `_variables.scss` as presets
 
-### 11. Performance & Optimization
+### 3. Code Examples
+- **Question**: Should each story include copyable code examples showing the component usage?
+- **Default**: Yes, use Storybook's Docs addon to auto-generate code examples
 
-#### 11.1 Bundle Size
-- **Question**: Should Storybook be optimized for bundle size?
-- **Question**: Do we need code splitting for stories?
-- **Question**: Should we lazy-load components in stories?
+### 4. Responsive Testing
+- **Question**: Should we include viewport controls for testing responsive behavior?
+- **Default**: Yes, use viewport addon with common breakpoints
 
-#### 11.2 Build Performance
-- **Question**: What is the acceptable Storybook build time?
-- **Question**: Should we optimize for fast refresh during development?
+### 5. Accessibility Testing
+- **Question**: Should we include accessibility addon (a11y) for testing?
+- **Default**: Not initially, can be added later if needed
 
-### 12. Integration with Existing Codebase
+### 6. Multiple Accordion Items Control
+- **Question**: Should users be able to dynamically add/remove accordion items, or fixed number?
+- **Default**: Fixed number (3) with editable content, can expand later
 
-#### 12.1 File Organization
-- **Question**: Where should story files be located?
-  - `src/bootstrap-components/Accordion.stories.tsx` (co-located)?
-  - `stories/Accordion.stories.tsx` (separate directory)?
-  - `src/stories/Accordion.stories.tsx`?
-- **Question**: Should we create a `stories/` directory structure?
-
-#### 12.2 Git & Version Control
-- **Question**: Should Storybook build artifacts be committed to git?
-- **Question**: Should we add Storybook-related files to `.gitignore`?
-- **Question**: Do we need a separate branch for Storybook development?
-
-### 13. User Experience
-
-#### 13.1 Control UX
-- **Question**: Should controls have:
-  - Tooltips explaining what they do?
-  - Default value indicators?
-  - Reset to default buttons?
-  - Preset configurations?
-- **Question**: Should complex controls be simplified or fully featured?
-
-#### 13.2 Story Navigation
-- **Question**: How should users navigate between stories?
-  - Sidebar navigation?
-  - Search functionality?
-  - Tags/categories?
-- **Question**: Should stories be searchable by component name or feature?
-
-### 14. Future Considerations
-
-#### 14.1 Scalability
-- **Question**: Should the Storybook setup support adding more components later?
-- **Question**: Do we need a component library structure for future expansion?
-- **Question**: Should we plan for component composition (e.g., Button inside Accordion)?
-
-#### 14.2 Maintenance
-- **Question**: Who will maintain Storybook stories?
-- **Question**: Should stories be updated automatically when components change?
-- **Question**: Do we need documentation for contributing new stories?
+### 7. Story Documentation
+- **Question**: What level of documentation detail is needed?
+- **Default**: Basic usage examples and prop descriptions, can expand later
 
 ## Success Criteria
 
-1. ✅ Storybook runs successfully on localhost
-2. ✅ Accordion component has stories with all variants (Basic, Flush)
+1. ✅ Storybook runs successfully on localhost:6006
+2. ✅ Accordion component has stories with Basic and Flush variants
 3. ✅ Button component has stories with all variants (Regular, Outline, Sizes, Block, Icons, States)
 4. ✅ All styling properties are controllable via Storybook controls
 5. ✅ Controls are intuitive and well-organized
@@ -406,23 +240,63 @@ This PRD outlines the requirements for implementing Storybook to document and te
 - Automated testing integration
 - Design system documentation beyond components
 - Component composition examples
+- Advanced accessibility testing
+- Custom control components
 
-## Next Steps
+## Implementation Steps
 
-1. Review and answer all questions in this PRD
-2. Set up Storybook configuration
-3. Create initial story structure
-4. Implement controls for Accordion component
-5. Implement controls for Button component
-6. Test and refine controls
-7. Add documentation and examples
-8. Review with stakeholders
+1. **Install Storybook**
+   - Run `npx storybook@latest init` with Vite builder
+   - Configure for TypeScript and React
+
+2. **Configure Storybook**
+   - Set up `.storybook/main.ts` with Vite builder
+   - Configure `.storybook/preview.ts` to import SCSS theme
+   - Add required addons
+
+3. **Create Accordion Stories**
+   - Extract Accordion examples from `Accordions.tsx`
+   - Create `Accordion.stories.tsx` with Basic and Flush stories
+   - Add controls for variant, content, and styling
+
+4. **Create Button Stories**
+   - Extract Button examples from `Buttons.tsx`
+   - Create `Button.stories.tsx` with all variant stories
+   - Add controls for variant, content, state, and styling
+
+5. **Test & Refine**
+   - Test all controls work correctly
+   - Verify styling applies properly
+   - Ensure code examples are accurate
+   - Test responsive behavior
+
+6. **Documentation**
+   - Add descriptions to stories
+   - Document control usage
+   - Add usage guidelines
+
+## Dependencies to Add
+
+```json
+{
+  "devDependencies": {
+    "@storybook/addon-actions": "^7.x",
+    "@storybook/addon-controls": "^7.x",
+    "@storybook/addon-docs": "^7.x",
+    "@storybook/addon-viewport": "^7.x",
+    "@storybook/addon-backgrounds": "^7.x",
+    "@storybook/react": "^7.x",
+    "@storybook/react-vite": "^7.x",
+    "storybook": "^7.x"
+  }
+}
+```
 
 ## References
 
 - [Storybook Documentation](https://storybook.js.org/docs)
+- [Storybook with Vite](https://storybook.js.org/docs/react/builders/vite)
 - [React Bootstrap Accordion](https://react-bootstrap.github.io/docs/components/accordion)
 - [React Bootstrap Button](https://react-bootstrap.github.io/docs/components/button)
 - Project SCSS Variables: `src/styles/theme/_variables.scss`
 - Component Source: `src/bootstrap-components/`
-
