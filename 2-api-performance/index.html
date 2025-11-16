@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Test Site - Playwright MCP Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 10px 5px;
+        }
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .image-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+        }
+        #data-display {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.9em;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        button {
+            background: #764ba2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎭 Playwright MCP Performance Demo</h1>
+        <div class="badge">Performance Issues Included</div>
+        <div class="badge">Large Bundles</div>
+        <div class="badge">Duplicate API Calls</div>
+        <div class="badge">Unoptimized Images</div>
+
+        <div class="section">
+            <h2>📊 Performance Test Scenarios</h2>
+            <p>This page intentionally includes various performance issues to demonstrate Playwright MCP's profiling capabilities:</p>
+            <ul>
+                <li>Multiple large JavaScript bundles (simulated)</li>
+                <li>Duplicate API calls</li>
+                <li>Large unoptimized images</li>
+                <li>Unnecessary network requests</li>
+                <li>Slow API responses</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🖼️ Image Loading Test</h2>
+            <div class="image-grid" id="image-grid">
+                <!-- Images will be loaded here -->
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔌 API Call Test</h2>
+            <button onclick="loadUserData()">Load User Data</button>
+            <button onclick="loadUserData()">Load Again (Duplicate)</button>
+            <button onclick="makeSlowRequest()">Slow API Call</button>
+            <div id="data-display" class="loading">Click a button to load data...</div>
+        </div>
+
+        <div class="section">
+            <h2>📦 Bundle Size Test</h2>
+            <p>This page loads multiple JavaScript files to simulate large bundle sizes.</p>
+            <div id="bundle-info"></div>
+        </div>
+    </div>
+
+    <!-- Intentionally large inline script to increase page weight -->
+    <script>
+        // Simulate a large bundle with repetitive code
+        const dummyData = Array(1000).fill(null).map((_, i) => ({
+            id: i,
+            name: `Item ${i}`,
+            description: `This is a description for item ${i}`,
+            data: Array(10).fill(`data-${i}`).join(',')
+        }));
+
+        // Load unoptimized placeholder images
+        function loadImages() {
+            const imageGrid = document.getElementById('image-grid');
+            const imageUrls = [
+                'https://picsum.photos/400/300?random=1',
+                'https://picsum.photos/400/300?random=2',
+                'https://picsum.photos/400/300?random=3',
+                'https://picsum.photos/400/300?random=4',
+                'https://picsum.photos/400/300?random=5',
+                'https://picsum.photos/400/300?random=6'
+            ];
+
+            imageUrls.forEach(url => {
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = 'Demo image';
+                imageGrid.appendChild(img);
+            });
+        }
+
+        // Duplicate API calls (intentional performance issue)
+        async function loadUserData() {
+            const display = document.getElementById('data-display');
+            display.innerHTML = '<div class="loading">Loading...</div>';
+
+            try {
+                // First call
+                const response1 = await fetch('https://jsonplaceholder.typicode.com/users');
+                const users1 = await response1.json();
+
+                // Duplicate call (unnecessary)
+                const response2 = await fetch('https://jsonplaceholder.typicode.com/users');
+                const users2 = await response2.json();
+
+                // Another duplicate
+                const response3 = await fetch('https://jsonplaceholder.typicode.com/users');
+                const users3 = await response3.json();
+
+                display.innerHTML = `
+                    <strong>API Called 3 Times (Duplicate Requests!):</strong><br>
+                    Loaded ${users1.length} users<br>
+                    <pre>${JSON.stringify(users1.slice(0, 2), null, 2)}</pre>
+                `;
+            } catch (error) {
+                display.innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        // Simulate slow API call
+        async function makeSlowRequest() {
+            const display = document.getElementById('data-display');
+            display.innerHTML = '<div class="loading">Making slow request...</div>';
+            
+            const startTime = Date.now();
+            
+            try {
+                // This endpoint has a built-in delay
+                const response = await fetch('https://httpbin.org/delay/3');
+                const data = await response.json();
+                const duration = Date.now() - startTime;
+                
+                display.innerHTML = `
+                    <strong>Slow API Response:</strong><br>
+                    Duration: ${duration}ms<br>
+                    <pre>${JSON.stringify(data, null, 2).substring(0, 200)}...</pre>
+                `;
+            } catch (error) {
+                display.innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        // Load additional "bundle" scripts
+        function loadBundles() {
+            const scripts = [
+                'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
+                'https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js'
+            ];
+
+            scripts.forEach(src => {
+                const script = document.createElement('script');
+                script.src = src;
+                document.body.appendChild(script);
+            });
+
+            document.getElementById('bundle-info').innerHTML = `
+                Loaded ${scripts.length} additional JavaScript bundles<br>
+                <small>Check network tab for bundle sizes</small>
+            `;
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            loadImages();
+            loadBundles();
+            
+            // Make an unnecessary API call on page load
+            fetch('https://jsonplaceholder.typicode.com/posts/1')
+                .then(r => r.json())
+                .then(data => console.log('Unnecessary initial API call:', data));
+        });
+
+        // Add more dummy code to increase bundle size
+        const moreUnusedCode = {
+            function1: () => Array(100).fill(0).map((_, i) => i * i),
+            function2: () => Array(100).fill(0).map((_, i) => i * i * i),
+            function3: () => Array(100).fill(0).map((_, i) => Math.sqrt(i)),
+            function4: () => Array(100).fill(0).map((_, i) => Math.pow(i, 4)),
+            unusedData: Array(500).fill(null).map(() => Math.random())
+        };
+    </script>
+</body>
+</html>
