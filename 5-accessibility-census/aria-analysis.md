@@ -311,3 +311,4 @@ The census.nl primary menu demonstrates **good semantic HTML practices** but fal
 
 **Recommendation:** Implement the Priority 1 fixes to achieve WCAG 2.1 Level AA compliance for menu interactions.
 
+

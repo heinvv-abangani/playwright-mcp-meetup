@@ -503,3 +503,4 @@ The Census.nl primary menu uses **semantic HTML5 elements** which provides a bas
 **Testing Tool:** Playwright MCP Browser Automation  
 **Next Review:** After implementing ARIA enhancements
 
+
