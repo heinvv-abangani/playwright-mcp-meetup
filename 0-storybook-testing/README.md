@@ -2,6 +2,12 @@
 
 This repository was cloned from the [dash-ui-react-vitejs-typescript](https://github.com/codescandy/dash-ui-react-vitejs-typescript) repository.
 
+## 🧪 NPM Commands
+npm install
+npm run dev
+npm run storybook
+
+
 ## 🧪 Playwright Testing
 
 This project includes Playwright for end-to-end testing.
